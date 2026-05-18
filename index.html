@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYSTEM PANEL</title>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<style>
+    /* RESET & BASE */
+    *{ margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
+    
+    body {
+        background: radial-gradient(circle at center, #1a0000, #000000);
+        color: white;
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    #particles-js {
+        position: fixed; width: 100%; height: 100%; z-index: 0;
+    }
+
+    .container {
+        position: relative; z-index: 2; height: 100vh;
+        display: flex; justify-content: center; align-items: center;
+    }
+
+    /* LABEL DEMO */
+    .demo-label {
+        position: absolute; top: 20px; left: 20px;
+        color: rgba(255, 0, 0, 0.5); font-size: 10px;
+        letter-spacing: 3px; font-weight: 100; text-transform: uppercase;
+    }
+
+    .box {
+        width: 360px; padding: 35px;
+        background: rgba(10, 0, 0, 0.9);
+        border: 1px solid #4d0000;
+        backdrop-filter: blur(25px);
+        border-radius: 30px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 1);
+        overflow: hidden; /* Biar animasi slide tidak tembus keluar */
+    }
+
+    h2 {
+        font-size: 22px; font-weight: 100; color: #ff0000;
+        margin-bottom: 25px; letter-spacing: 4px; text-transform: uppercase;
+    }
+
+    h2 span.h4x-style { font-weight: 100; color: #ff0000; text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); }
+
+    input {
+        width: 100%; padding: 15px; margin: 10px 0;
+        background: rgba(0, 0, 0, 0.8); border: 1px solid #330000;
+        color: #ff0000; outline: none; border-radius: 15px;
+    }
+
+    .btn-main {
+        width: 100%; padding: 16px; margin-top: 15px;
+        border: none; border-radius: 50px; cursor: pointer;
+        font-weight: bold; background: #8b0000; color: #ffffff;
+        text-transform: uppercase; letter-spacing: 2px; transition: 0.4s;
+    }
+
+    .btn-main:hover { background: #ff0000; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
+    
+    .btn-nav {
+        background: transparent; border: 1px solid #4d0000;
+        color: #ffffff; margin-top: 10px; font-size: 12px;
+    }
+
+    .feature-grid, .social-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
+    }
+
+    .feat-btn {
+        background: rgba(30, 0, 0, 0.6); border: 1px solid #4d0000;
+        padding: 15px 10px; border-radius: 12px; font-size: 11px;
+        font-weight: 700; color: #ffffff; cursor: pointer;
+        transition: 0.4s; text-transform: uppercase;
+        display: flex; align-items: center; justify-content: center;
+        text-decoration: none;
+    }
+
+    .feat-btn.active {
+        background: rgba(139, 0, 0, 0.3); border-color: #ff0000; color: #ff0000;
+        text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+    }
+
+    /* EFEK SMOOTH TRANSISI */
+    .page-content {
+        animation: fadeInSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fadeInSlide {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .about-text {
+        font-size: 12px; color: #e0e0e0; line-height: 1.8;
+        text-align: center; margin-top: 15px; letter-spacing: 1px;
+    }
+
+    .about-text b { color: #ff0000; font-weight: 500; }
+
+    #boot {
+        position: fixed; inset: 0; background: #000; z-index: 1000;
+        display: none; justify-content: center; align-items: center; flex-direction: column;
+    }
+
+    .bar { width: 200px; height: 2px; background: #111; margin-top: 30px; overflow: hidden; }
+    .fill { width: 0%; height: 100%; background: #ff0000; }
+
+    .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div id="boot">
+    <h3 style="letter-spacing: 8px; color: #ff0000; font-size: 10px; font-weight: 100;">INITIALIZING...</h3>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+
+<div class="container">
+
+    <div class="box" id="loginBox">
+        <div class="page-content">
+            <h2>FII'XITERZ <span class="h4x-style">H4X</span></h2>
+            <input id="user" placeholder="OPERATOR ID" spellcheck="false">
+            <input id="pass" type="password" placeholder="ACCESS KEY">
+            <button class="btn-main" onclick="login()">Enter System</button>
+            <div id="msg" style="color:#ff0000; font-size:10px; margin-top:15px; font-weight: bold;"></div>
+        </div>
+    </div>
+
+    <div class="box" id="panel" style="display: none;">
+        
+        <div id="pageFeatures" class="page-content">
+            <div class="demo-label">DEMO VERSION</div>
+            <h2 style="font-size: 18px;">DASHBOARD</h2>
+            <div class="feature-grid">
+                <div class="feat-btn" onclick="toggleFeat(this)">Aimbot Rage</div>
+                <div class="feat-btn" onclick="toggleFeat(this)">Aimbot Neck</div>
+                <div class="feat-btn" onclick="toggleFeat(this)">Wallhack</div>
+                <div class="feat-btn" onclick="toggleFeat(this)">Aimdrag</div>
+                <div class="feat-btn" onclick="toggleFeat(this)">ESP Skeleton</div>
+                <div class="feat-btn" onclick="toggleFeat(this)">ESP Box</div>
+            </div>
+            <button class="btn-main" id="execBtn" onclick="execute()">Inject Modules</button>
+            <div id="status" style="margin-top:10px; font-size:10px; color:#ff0000; font-weight:bold;">READY</div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-main btn-nav" onclick="logout()">LOGOUT</button>
+                <button class="btn-main btn-nav" style="flex-grow: 2;" onclick="showPage('pageSocial')">NEXT</button>
+            </div>
+        </div>
+
+        <div id="pageSocial" class="page-content hidden">
+            <h2 style="font-size: 18px;">CONTACT INFO</h2>
+            <div class="social-grid">
+                <a href="https://wa.me/6285715933441" target="_blank" class="feat-btn">Contact Me</a>
+                <a href="https://instagram.com/kapiniceguyyy" target="_blank" class="feat-btn">Instagram</a>
+                <a href="https://tiktok.com/@niceguyyy15" target="_blank" class="feat-btn">TikTok</a>
+                <a href="https://sociabuzz.com/kapi_tayerdd" target="_blank" class="feat-btn">Sociabuzz</a>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-main btn-nav" onclick="showPage('pageFeatures')">BACK</button>
+                <button class="btn-main btn-nav" style="flex-grow: 2;" onclick="showPage('pageAbout')">NEXT</button>
+            </div>
+        </div>
+
+        <div id="pageAbout" class="page-content hidden">
+            <h2 style="font-size: 18px;">ABOUT ME</h2>
+            <div class="about-text">
+                Welcome to <b>FII'XITERZ H4X</b>. Developed by <b>KAPI NICEGUY</b>. <br><br>
+                Expertise in: <br>
+                <b>PROGRAMMER</b> • <b>TRADING</b> <br> 
+                <b>JOKI VALORANT & FREE FIRE</b>
+            </div>
+            <button class="btn-main btn-nav" onclick="showPage('pageSocial')">BACK TO CONTACT</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+particlesJS("particles-js", {
+    particles:{
+        number:{ value: 110, density:{enable:true, value_area: 800} },
+        color:{value:"#ff0000"},
+        opacity:{ value: 0.6, random: true },
+        size:{ value: 3, random: true },
+        line_linked:{ enable:true, distance: 140, color:"#ff0000", opacity: 0.4, width: 1.2 },
+        move:{ enable:true, speed: 1.8, direction:"none", out_mode:"out" }
+    }
+});
+
+function login(){
+    let u=document.getElementById("user").value;
+    let p=document.getElementById("pass").value;
+    if(u==="FII" && p==="123"){
+        setTimeout(() => { startBoot(); }, 1500);
+    } else {
+        document.getElementById("msg").innerText = "ACCESS DENIED";
+    }
+}
+
+function startBoot(){
+    document.getElementById("boot").style.display="flex";
+    let fill=document.getElementById("fill");
+    let progress=0;
+    let interval=setInterval(()=>{
+        progress += 2;
+        fill.style.width=progress+"%";
+        if(progress>=100){
+            clearInterval(interval);
+            setTimeout(()=>{
+                document.getElementById("boot").style.display="none";
+                document.getElementById("loginBox").style.display="none";
+                document.getElementById("panel").style.display="block";
+            },500);
+        }
+    },20);
+}
+
+function toggleFeat(el) { el.classList.toggle("active"); }
+
+function execute(){
+    let s=document.getElementById("status");
+    s.innerText="BYPASSING SECURITY...";
+    setTimeout(()=>{
+        s.innerText="SUCCESS ✔";
+        setTimeout(() => {
+            s.innerText="LAUNCHING FREE FIRE...";
+            window.location.href = "intent://#Intent;scheme=android-app;package=com.dts.freefireth;end";
+        }, 1000);
+    }, 2500);
+}
+
+// FUNGSI PINDAH HALAMAN DENGAN RESET ANIMASI
+function showPage(pageId) {
+    const pages = ['pageFeatures', 'pageSocial', 'pageAbout'];
+    
+    pages.forEach(p => {
+        const el = document.getElementById(p);
+        el.classList.add('hidden');
+        // Reset animasi dengan menghapus class sementara
+        el.style.animation = 'none';
+        el.offsetHeight; /* trigger reflow */
+        el.style.animation = null; 
+    });
+
+    document.getElementById(pageId).classList.remove('hidden');
+}
+
+function logout() {
+    document.getElementById("panel").style.display="none";
+    document.getElementById("loginBox").style.display="block";
+    showPage('pageFeatures');
+}
+</script>
+
+</body>
+</html>
